@@ -8,7 +8,7 @@
 
 - [ ] Project: Password Manager & Generator
 
---> keep practising C++ // DS & Algorithms. 
+--> keep practising C++ // DS & Algorithms. -> then go to CPP STL
 - [ ] Git & Github: w3school
 
 - [ ] CPP Unions.
