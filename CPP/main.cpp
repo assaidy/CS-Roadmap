@@ -1,12 +1,5 @@
-#include <algorithm>
-#include <cmath>
 #include <iostream>
-#include <string>
-#include <system_error>
-#include "wee.h"
 
-template<class T>
-void myswap(T &a, T &b);
 
 int main() {
 
@@ -16,10 +9,4 @@ int main() {
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-template<class T>
-void myswap(T &a, T &b) {
-    T tmp = a;
-    a = b;
-    b = tmp;
-}
 
