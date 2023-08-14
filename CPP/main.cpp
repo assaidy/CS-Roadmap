@@ -2,7 +2,7 @@
 
 int main() {
     int val{}, curVal{};
-    
+
     if (std::cin >> curVal){
         int cnt{1};
         while (std::cin >> val){
