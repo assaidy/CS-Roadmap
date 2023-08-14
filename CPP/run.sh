@@ -1,2 +1,2 @@
-make main
+g++ -o main main.cpp -Wall
 ./main
