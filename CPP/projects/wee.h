@@ -102,6 +102,8 @@ char get_char(std::string msg=""){
 std::string get_string(std::string msg=""){
 	std::cout << msg;
 	std::string userInput{};
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::getline(std::cin, userInput);
 	return userInput;
 }
