@@ -1,4 +1,6 @@
 #include <bits/types/time_t.h>
+#include <cstdio>
+#include <cstdlib>
 #include <regex>
 #include <iostream>
 #include <string>
@@ -16,9 +18,13 @@ int main() {
     unsigned int tries{5};
 
     while (tries > 0) {
+        system("clear");
+
         inputNum = get_int("Guess A Number: ");
         if (inputNum > 1000 || inputNum < 1) {
-            std::cout << "\nPlz, Enter a number between [1 - 1000] inclusive.\n\n";
+            std::cout << "\nPlz, Enter a number between [1 - 1000] inclusive...";
+            getchar();
+            getchar();
         } else {
             srand((unsigned) time(NULL));
             randomNum = 1 + (rand() % 1000);

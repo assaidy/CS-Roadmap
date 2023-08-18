@@ -22,7 +22,7 @@ int get_int(std::string msg=""){
 
 		//Error Handling
 		if (std::cin.fail()) {
-			std::cout << "==> Type Error: Please enter a value of type 'int' {1, 2, 3, 200}.\n";
+			std::cerr << "==> Type Error: Please enter a value of type 'int' {1, 2, 3, 200}.\n";
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			continue;
@@ -43,7 +43,7 @@ float get_float(std::string msg=""){
 
 		//Error Handling
 		if (std::cin.fail()) {
-			std::cout << "==> Type Error: Please enter a value of type 'flaot' {1, 2, 3.5, 200.9}.\n";
+			std::cerr << "==> Type Error: Please enter a value of type 'flaot' {1, 2, 3.5, 200.9}.\n";
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			continue;
@@ -64,7 +64,7 @@ double get_double(std::string msg=""){
 
 		//Error Handling
 		if (std::cin.fail()) {
-			std::cout << "==> Type Error: Please enter a value of type 'double' {1, 2, 3.5, 200.9}.\n";
+			std::cerr << "==> Type Error: Please enter a value of type 'double' {1, 2, 3.5, 200.9}.\n";
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			continue;
@@ -85,7 +85,7 @@ char get_char(std::string msg=""){
 
 		//Error Handling
 		if (std::size(userInput) > 1) {
-			std::cout << "==> Type Error: Please enter a value of type 'char' {'a', 'b', 'D'}.\n";
+			std::cerr << "==> Type Error: Please enter a value of type 'char' {'a', 'b', 'D'}.\n";
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			continue;
