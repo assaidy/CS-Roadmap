@@ -1,13 +1,12 @@
 #include <iostream>
 #include <string>
 
-int reuse = 42;
-
 int main() {
     
-    int i, &ri = i;
-    i = 5; ri = 10;
-    std::cout << i << " " << ri << std::endl;
+    for (int i = 1; i <= 10; i++) {
+        std::cout << i << ' ';
+    }
+    std::cout << '\n';
 
     return 0;
 }
