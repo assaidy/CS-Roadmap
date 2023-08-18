@@ -1,6 +1,7 @@
 #include <bits/types/time_t.h>
 #include <cstdio>
 #include <cstdlib>
+#include <istream>
 #include <regex>
 #include <iostream>
 #include <string>

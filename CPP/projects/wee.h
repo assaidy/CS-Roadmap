@@ -102,7 +102,7 @@ char get_char(std::string msg=""){
 std::string get_string(std::string msg=""){
 	std::cout << msg;
 	std::string userInput{};
-	std::getline(std::cin, userInput);
+	std::getline(std::cin >> std::ws, userInput);
 	return userInput;
 }
 
