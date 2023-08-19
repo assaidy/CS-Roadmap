@@ -1,7 +1,7 @@
 #include <limits.h>
 #include <iostream>
 #include <string>
-#include "wee.h"
+#include <wee.h>
 
 void cipher(std::string str){
     for (char &i : str){

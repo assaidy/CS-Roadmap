@@ -1,6 +1,10 @@
+#pragma once
+
 #include <cstddef>
 #include <iostream>
 #include <limits>
+#include <regex>
+#include <string>
 
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -102,7 +106,7 @@ char get_char(std::string msg=""){
 std::string get_string(std::string msg=""){
 	std::cout << msg;
 	std::string userInput{};
-	std::getline(std::cin, userInput);
+	std::getline(std::cin >> std::ws, userInput);
 	return userInput;
 }
 
@@ -115,4 +119,8 @@ void newline(){
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
+// remove white spaces around a stringo
+std::string strip(std::string str="") {
+    str = std::regex_replace(str, std::regex("^\\s+|\\s+$"), "");
+    return str;
+}

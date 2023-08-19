@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "wee.h"
+#include <wee.h>
 
 struct data {
     std::string password{};

@@ -5,7 +5,7 @@
 #include <regex>
 #include <iostream>
 #include <string>
-#include "wee.h"
+#include <wee.h>
 
 /*
  * TODO: 
@@ -43,8 +43,8 @@ int main() {
                     return 0;
                 }
 
-                std::string answer = get_string("Would you like to continue? [yes/no] "); // this uses getline()
-                answer = std::regex_replace(answer, std::regex("^\\s+|\\s+$"), ""); // remove any white spaces before or after 'answer'
+                std::string answer = strip(get_string("Would you like to continue? [yes/no] ")); // this uses getline()
+                // answer = strip(answer);
 
                 if (answer == "yes") {
                     continue; 
