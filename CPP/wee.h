@@ -124,3 +124,6 @@ std::string strip(std::string str="") {
     str = std::regex_replace(str, std::regex("^\\s+|\\s+$"), "");
     return str;
 }
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+

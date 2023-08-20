@@ -1,6 +1,6 @@
 #include <iostream>
-#include <ostream>
 #include <string>
+#include <wee.h>
 
 int main() {
     int i{10};
