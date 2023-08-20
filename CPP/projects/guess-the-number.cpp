@@ -1,14 +1,11 @@
 #include <bits/types/time_t.h>
-#include <cstdio>
-#include <cstdlib>
-#include <istream>
-#include <regex>
 #include <iostream>
+#include <regex>
 #include <string>
 #include <wee.h>
 
 /*
- * TODO: 
+ * TODO:
  * - [x] set number of tries.
  * - [ ] help the user by: 'the number is between $ and $'
  * */
@@ -27,7 +24,7 @@ int main() {
             getchar();
             getchar();
         } else {
-            srand((unsigned) time(NULL));
+            srand((unsigned)time(NULL));
             randomNum = 1 + (rand() % 1000);
 
             if (randomNum == inputNum) {
@@ -44,15 +41,14 @@ int main() {
                 }
 
                 std::string answer = strip(get_string("Would you like to continue? [yes/no] ")); // this uses getline()
-                // answer = strip(answer);
 
                 if (answer == "yes") {
-                    continue; 
+                    continue;
                 } else {
                     std::cout << "\nEnd of the game.\n";
                     return 0;
                 }
             }
-        } 
+        }
     }
 }
