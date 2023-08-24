@@ -10,14 +10,14 @@
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // basic input() function like python
-std::string input(std::string msg=""){
+std::string input(std::string msg = "") {
 	std::cout << msg;
 	std::string userInput{};
 	std::getline(std::cin, userInput);
 	return userInput;
 }
 
-int get_int(std::string msg=""){
+int get_int(std::string msg = "") {
 	int userInput{};
 
 	while (true) {
@@ -38,7 +38,7 @@ int get_int(std::string msg=""){
 	return userInput;
 }
 
-float get_float(std::string msg=""){
+float get_float(std::string msg = "") {
 	float userInput{};
 
 	while (true) {
@@ -59,7 +59,7 @@ float get_float(std::string msg=""){
 	return userInput;
 }
 
-double get_double(std::string msg=""){
+double get_double(std::string msg = "") {
 	double userInput{};
 
 	while (true) {
@@ -80,7 +80,7 @@ double get_double(std::string msg=""){
 	return userInput;
 }
 
-char get_char(std::string msg=""){
+char get_char(std::string msg = "") {
 	std::string userInput{};
 
 	while (true) {
@@ -103,7 +103,7 @@ char get_char(std::string msg=""){
 	return result;
 }
 
-std::string get_string(std::string msg=""){
+std::string get_string(std::string msg = "") {
 	std::cout << msg;
 	std::string userInput{};
 	std::getline(std::cin >> std::ws, userInput);
@@ -113,16 +113,16 @@ std::string get_string(std::string msg=""){
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // print new line
-void newline(){
+void newline() {
 	std::cout << '\n';
 }
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-// remove white spaces around a stringo
-std::string strip(std::string str="") {
-    str = std::regex_replace(str, std::regex("^\\s+|\\s+$"), "");
-    return str;
+// remove white spaces around a string
+std::string strip(std::string str = "") {
+	str = std::regex_replace(str, std::regex("^\\s+|\\s+$"), "");
+	return str;
 }
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
