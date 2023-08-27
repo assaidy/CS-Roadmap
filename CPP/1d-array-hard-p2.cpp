@@ -11,10 +11,10 @@ int main() {
     for (int i = 0; i < K; i++) // initial sum
         sum += arr[i];
 
-    int max_sum = sum, max_idx{ 0 };
+    int max_sum{ sum }, max_idx{ 0 };
 
     for (int i = 1; i < (N - K + 1); i++) {
-        // std::cout << i << '\n'; // just for tracing and debuging
+        // std::cout << i << '\n'; // just for tracing
         sum -= arr[i - 1]; // remove element before
         sum += arr[i + K - 1]; // add element after
         if (max_sum < sum) {
