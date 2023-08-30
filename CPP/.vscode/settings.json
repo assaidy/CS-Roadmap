@@ -3,6 +3,12 @@
         "ostream": "cpp",
         "iostream": "cpp",
         "bitset": "cpp",
-        "*.inc": "cpp"
+        "*.inc": "cpp",
+        "chrono": "cpp",
+        "random": "cpp",
+        "limits": "cpp",
+        "semaphore": "cpp",
+        "valarray": "cpp",
+        "algorithm": "cpp"
     }
 }

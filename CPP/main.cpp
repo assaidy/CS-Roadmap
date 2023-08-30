@@ -1,24 +1,33 @@
 #include <iostream>
+#include <wee.h>
+
+int max(int a, int b, int c) {
+    int maximum = a;
+    if (maximum < b) maximum = b;
+    if (maximum < c) maximum = c;
+    return maximum;
+}
+int max(int a, int b, int c, int d) {
+    if (max(a, b, c) >= d)
+        return max(a, b, c);
+    else
+        return d;
+}
+int max(int a, int b, int c, int d, int e) {
+    if (max(a, b, c, d) >= e)
+        return max(a, b, c, d);
+    else
+        return e;
+}
+int max(int a, int b, int c, int d, int e, int f) {
+    if (max(a, b, c, d, e) >= f)
+        return max(a, b, c, d, e);
+    else
+        return f;
+}
 
 int main() {
-    int arr[3][3]{ 0 };
-
-    // fill 
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            std::cin >> arr[i][j];
-        }
-    }
-
-    // north, west, east, south
-    int di[]{-1, 0, 0, 1}; // y => difference in rows
-    int dj[]{0, -1, 1, 0}; // x => difference in cols
-
-    std::cout << "neighboars of indx 1x1: " << arr[1][1] << "\n";
-    std::cout << "\tnorth = " << arr[1+ di[0]][1 + dj[0]] << '\n';
-    std::cout << "\twest = " << arr[1+ di[1]][1 + dj[1]] << '\n';
-    std::cout << "\teast = " << arr[1+ di[2]][1 + dj[2]] << '\n';
-    std::cout << "\tsouth = " << arr[1+ di[3]][1 + dj[3]] << '\n';
+    std::cout << max(10, 2, 9, 4, 5, 6) << '\n';
 
     return 0;
 }
