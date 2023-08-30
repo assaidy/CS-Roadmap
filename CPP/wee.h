@@ -127,3 +127,28 @@ std::string strip(std::string str = "") {
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+// helper function us in str_replace => check if the substring is exists or not
+bool start_with(std::string input, std::string pattern, int position) {
+    if (position + pattern.size() > input.size()) return false; // don't go beyond the "input" string
+    for (int i = position, j = 0; j < size(pattern); i++, j++) {
+        if (input[i] != pattern[j])
+            return false;
+    }
+    return true;
+}
+// replace substrings
+std::string str_replace(std::string input, std::string pattern, std::string to) {
+    std::string result{};
+    for (int i = 0; i < size(input); i++) {
+        if (start_with(input, pattern, i)) {
+            result += to;
+            i += size(pattern) - 1;
+        }
+        else {
+            result += input[i];
+        }
+    }
+    return result;
+}
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
