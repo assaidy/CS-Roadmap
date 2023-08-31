@@ -52,6 +52,7 @@ struct library_system {
         added_books = 0;
         added_users = 0;
     }
+
     void run() {
         int choice{};
         while (true) {
@@ -132,12 +133,12 @@ struct library_system {
     }
 
     void print_library_by_id() {
-        std::sort(books, books + added_books, compare_id);
+        std::sort(books, books + added_books, compare_id_book);
         print_books();
     }
 
     void print_library_by_name() {
-        std::sort(books, books + added_books, compare_name);
+        std::sort(books, books + added_books, compare_name_book);
         print_books();
     }
 
