@@ -1,18 +1,19 @@
 #include <iostream>
 #include <algorithm>
+#include <string>
 #include <wee.h>
 
 const int MAX_BOOKS{ 1000 };
 const int MAX_USERS{ 1000 };
 int added_books{};
 int added_users{};
-int borrowed_books{};
 
 struct book {
     std::string name;
     int id;
     int quantity;
     int borrowed;
+    std::string users_borrowed[MAX_USERS];
 
     book() {
         id = quantity = borrowed = 0;
@@ -20,7 +21,7 @@ struct book {
     }
 
     book(int id_, std::string name_, int quantity_) {
-        id = id;
+        id = id_;
         name = name_;
         quantity = quantity_;
         borrowed = 0;
@@ -38,7 +39,7 @@ struct user {
     }
 
     user(int id_, std::string name_) {
-        id = id;
+        id = id_;
         name = name_;
         borrowed = 0;
     }
@@ -68,6 +69,12 @@ struct library_system {
                 add_user();
             else if (choice == 5)
                 print_users();
+            else if (choice == 6)
+                search_book();
+            else if (choice == 7)
+                user_borrow_book();
+            else if (choice == 8)
+                user_return_book();
             else
                 break;
         }
@@ -82,10 +89,14 @@ struct library_system {
                 "03) print library by name\n"
                 "04) add user\n"
                 "05) print users\n"
-                "06) exit\n\n";
+                "06) search a book by prefix\n"
+                "07) user borrow a book\n"
+                "08) user return a book\n"
+                "09) print who borrowed by name\n"
+                "10) exit\n\n";
 
-            choice = get_int("Enter a number [1 - 6]: ");
-            if (0 >= choice || choice > 6) {
+            choice = get_int("Enter a number [1 - 10]: ");
+            if (0 >= choice || choice > 10) {
                 std::cout << "Add valid number.\n\n";
                 continue;
             }
@@ -178,18 +189,67 @@ struct library_system {
         }
     }
 
+    bool is_prefix(std::string bookName, std::string prefix) {
+        for (int i = 0; i < std::size(prefix); i++) {
+            if (bookName[i] != prefix[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    void search_book() {
+        std::string prefix_ = get_string("enter book prefix: ");
+        for (int i = 0; i < added_books; i++) {
+            if (is_prefix(books[i].name, prefix_)) {
+                std::cout << books[i].name << '\n';
+            }
+        }
+    }
+
     void user_borrow_book() {
         std::cout << "enter user name, book name: ";
-        std::string book_to_borrow{};
-        std::string user_who_borrow{};
+        std::string user_who_borrow{get_string()};
+        std::string book_to_borrow{get_string()};
 
+        // search for the book if available
+        for (int i = 0; i < added_books; i++) {
+            if (is_prefix(books[i].name, book_to_borrow) && books[i].quantity > 0) {
+                // search for user if available
+                for (int j = 0; j < added_users; j++) {
+                    if (users[j].name == user_who_borrow) {
+                        books[i].quantity--;
+                        books[i].users_borrowed[books[i].borrowed] = user_who_borrow;
+                        books[i].borrowed++;
+                        return;
+                    }
+                }
+            }
+        }
     }
 
     void user_return_book() {
         std::cout << "enter user name, book name: ";
-        std::string book_to_return{};
-        std::string user_who_return{};
+        std::string user_who_return{get_string()};
+        std::string book_to_return{get_string()};
 
+        // search for the book && user if available
+        for (int i = 0; i < added_books; i++) {
+            if (is_prefix(books[i].name, book_to_return) && books[i].borrowed > 0) {
+                // search for user if available
+                for (int j = 0; j < books[i].borrowed; j++) {
+                    if (books[i].users_borrowed[j] == user_who_return) {
+                        books[i].quantity++;
+                        std::swap(books[i].users_borrowed[j], books[i].users_borrowed[0]);
+                        // shift left to delete the user
+                        for (int k = 0; k < books[i].borrowed - 1; k++) {
+                            books[i].users_borrowed[k] = books[i].users_borrowed[k + 1];
+                        }
+                        books[i].borrowed--;
+                    }
+                }
+            }
+        }
     }
 
 };
@@ -201,5 +261,3 @@ int main() {
     return 0;
 }
 
-// user_borrow_book() => book.borrowed++; book.quantity--; user.borrowed++;
-// user_return_book() => book.borrowed--; book.quantity++; user.borrowed--;
