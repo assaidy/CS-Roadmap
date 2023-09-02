@@ -173,7 +173,7 @@ struct library_system {
         std::cout << "9) print_users\n";
         std::cout << "10) Exit\n";
 
-        while (choice = -1) {
+        while (choice == -1) {
             std::cout << "\nEnter a number from [1 - 10]: ";
             std::cin >> choice;
 
