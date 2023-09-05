@@ -136,6 +136,7 @@ bool start_with(std::string input, std::string pattern, int position) {
     }
     return true;
 }
+
 // replace substrings
 std::string str_replace(std::string input, std::string pattern, std::string to) {
     std::string result{};
