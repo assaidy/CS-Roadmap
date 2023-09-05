@@ -1,21 +1,14 @@
 #include <iostream>
+#include <sstream>
 #include <fstream>
 
 int main() {
-    std::string path{ "names.txt" };
-    std::fstream file_handler(path.c_str());
+    std::ostringstream oss;
+    oss << "Ahmad ";
+    oss << 50;
+    oss << " years\n";
 
-    if (file_handler.fail()) {
-        std::cout << "Can't open the file\n";
-        return 0;
-    }
-    std::string line;
-
-    while (getline(file_handler, line)) {
-        std::cout << line << '\n';
-    }
-
-    file_handler.close();
+    std::cout << oss.str();
 
     return 0;
 }
