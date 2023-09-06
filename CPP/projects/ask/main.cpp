@@ -4,7 +4,7 @@
 #include <vector>
 #include <map>
 
-// Helper Functions
+/////////////////////// Helper Functions /////////////////////////////
 std::vector<std::string> SplitString(std::string line, char delimiter = ',') {
     std::vector<std::string> result;
     std::string str;
@@ -82,21 +82,28 @@ int ReadInt(int low, int high) {
     return ReadInt(low, high);
 }
 
+int ReadMenu(std::vector<std::string> choices) {
+    for (int i = 0; i < int(choices.size()); i++) {
+        std::cout << '\t' << i + 1 << ": " << choices.at(i) << '\n';
+    }
+    return ReadInt(1, choices.size());
+}
+//////////////////////////////////////////////////////////////////////
+
 
 
 int main() {
-    // std::string path{ "users.txt" };
-    // std::vector<std::string> lines{ ReadFileLines(path) };
-    // WriteFileLines("users.txt", lines);
+    /*     std::string path{ "users.txt" };
+        std::vector<std::string> lines{ ReadFileLines(path) };
+        WriteFileLines("users.txt", lines);
 
-    // for (const auto& str1 : lines) {
-    //     for (const auto& str2 : SplitString(str1)) {
-    //         std::cout << str2 << ' ';
-    //     }
-    //     std::cout << '\n';
-    // }
-    int num{ ReadInt(10, 20) };
-    std::cout << num << '\n';
+        for (const auto& str1 : lines) {
+            for (const auto& str2 : SplitString(str1)) {
+                std::cout << str2 << ' ';
+            }
+            std::cout << '\n';
+        } */
+
 
     return 0;
 }
