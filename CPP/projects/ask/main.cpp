@@ -217,6 +217,9 @@ struct User {
     }
 };
 
+struct QuestionsManager {
+    
+};
 
 
 
