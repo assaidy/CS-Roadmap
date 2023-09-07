@@ -5,6 +5,7 @@
 #include <fstream>
 #include <vector>
 #include <map>
+#include <regex.h>
 #include <wee.h>
 
 ///////////////////////////// Helper Functions ////////////////////////////
@@ -31,7 +32,7 @@ std::vector<std::string> ReadFileLines(std::string path) {
     std::fstream file_handler(path, status);
 
     if (file_handler.fail()) {
-        std::cout << "\n\nERROR: can't open file " << path << '\n\n';
+        std::cout << "\n\nERROR: can't open file " << path << "\n\n";
     }
     std::string line;
 
@@ -48,12 +49,12 @@ std::vector<std::string> ReadFileLines(std::string path) {
 void WritFileLines(std::string str, std::string path, bool append = true) {
     auto status{ std::ios::in | std::ios::out | std::ios::app };
     if (!append) {
-        auto status{ std::ios::in | std::ios::out | std::ios::app };
+        status = std::ios::in | std::ios::out | std::ios::app;
     }
     std::fstream file_handler(path, status);
 
     if (file_handler.fail()) {
-        std::cout << "\n\nERROR: can't open file " << path << '\n\n';
+        std::cout << "\n\nERROR: can't open file " << path << "\n\n";
     }
     file_handler << str << '\n';
 
@@ -70,7 +71,7 @@ struct Password {
         password = key = "";
     }
 
-    void generate_random_password() {
+    std::string GenerateRandomPassword() {
         std::vector<char> tokens = {
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
             'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
@@ -86,29 +87,37 @@ struct Password {
             char token = tokens.at(0 + rand() % size(tokens));
             password_ += token;
         }
-        password = password_;
+        return password_;
     }
 
-    std::string generate_complete_password() {
+    std::string GenerateCompletePassword() {
         std::ostringstream oss;
         oss << password << "," << key << '\n';
 
         return oss.str();
     }
 
-    void print() {
-        std::cout << "\t" << key << "\t" << password << '\n';
+    void Print() {
+        std::cout << "\n\t" << key << "\n\t" << password << '\n';
+    }
+
+    void Clear() {
+        key = "";
+        password = "";
     }
 };
 
 struct PassMan {
-    std::map<std::string, std::string> key_to_password_map;
+    Password new_password;
+    std::vector<std::string> lines{ ReadFileLines("passwords.txt") };
+    std::vector<std::pair<std::string, std::string>> key_password_pairs;
+
 
     PassMan() {
-        std::vector<std::string> lines{ ReadFileLines("passwords.txt") };
-    }
-
-    void LoadDataBase() {
+        for (const auto& line : lines) { // lines(vector of lines)
+            // std::vector<std::string> key_password = SplitString(line);
+            key_password_pairs.push_back(std::pair(SplitString(line).at(0), SplitString(line).at(1)));
+        }
 
     }
 
@@ -144,14 +153,39 @@ struct PassMan {
     }
 
     void NewAutoPassword() {
+        std::cout << "\tkey: ";
+        std::cin >> new_password.key;
+        new_password.password = new_password.GenerateRandomPassword();
 
+        WritFileLines(new_password.GenerateCompletePassword(), "passwords.txt");
+        new_password.Clear();
     }
 
     void NewManualPassword() {
+        std::cout << "\tkey: ";
+        std::cin >> new_password.key;
+        std::cout << "\tpassword: ";
+        std::cin >> new_password.password;
 
+        WritFileLines(new_password.GenerateCompletePassword(), "passwords.txt");
+        new_password.Clear();
     }
 
     void SearchByKeyPrefix() {
+        std::string keyword = get_string("\t\nenter a search keyword: ");
+
+        // TODO:
+        // - [ ] sort the vector befor searching
+        // - [ ] improve the search
+
+        // for (const auto& key : lines) {
+        //     if (std::regex_match(key.keyName, std::regex(keyword))) {
+        //         std::cout << key.keyName << '\t' << word.key << '\n';
+        //     }
+        // }
+
+        // std::cout << "\nEnter a key in the keyboard to Continue...";
+        // getchar();
 
     }
 
