@@ -178,6 +178,8 @@ struct PassMan {
     void NewAutoPassword() {
         LoadDatabase();
 
+        // TODO: check if key is taken before
+
         std::cout << "\tkey: ";
         std::cin >> new_password.key;
         new_password.password = new_password.GenerateRandomPassword();
@@ -188,6 +190,8 @@ struct PassMan {
 
     void NewManualPassword() {
         LoadDatabase();
+
+        // TODO: check if key is taken before
 
         std::cout << "\tkey: ";
         std::cin >> new_password.key;
@@ -200,6 +204,7 @@ struct PassMan {
 
     void SearchByKeyPrefix() {
         std::string keyword = get_string("\t\nenter a search keyword: ");
+        // TODO:
 
     }
 
