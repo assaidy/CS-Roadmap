@@ -21,6 +21,7 @@ std::vector<std::string> SplitString(const std::string& line) {
         }
         str += line.at(i);
     }
+    password_data.push_back(str);
     assert(password_data.size() == 2);
     return password_data;
 }
@@ -71,6 +72,11 @@ struct Password {
         password = key = "";
     }
 
+    Password(std::string key_, std::string passwrod_) {
+        key = key_;
+        password = passwrod_;
+    }
+
     std::string GenerateRandomPassword() {
         std::vector<char> tokens = {
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
@@ -92,7 +98,7 @@ struct Password {
 
     std::string GenerateCompletePassword() {
         std::ostringstream oss;
-        oss << password << "," << key << '\n';
+        oss << key << "," << password << '\n';
 
         return oss.str();
     }
@@ -109,22 +115,34 @@ struct Password {
 
 struct PassMan {
     Password new_password;
-    std::vector<std::string> lines{ ReadFileLines("passwords.txt") };
-    std::vector<std::pair<std::string, std::string>> key_password_pairs;
+    std::vector<std::string> lines;
+    std::pair<std::string, std::string> key_password_pairs;
+    std::vector<Password> SystemPasswrods;
 
 
     PassMan() {
-        for (const auto& line : lines) { // lines(vector of lines)
-            // std::vector<std::string> key_password = SplitString(line);
-            key_password_pairs.push_back(std::pair(SplitString(line).at(0), SplitString(line).at(1)));
-        }
+    }
 
+    // for (const auto& line : lines) { // lines(vector of lines)
+    //     // std::vector<std::string> key_password = SplitString(line);
+    //     key_password_pairs.push_back(std::pair(SplitString(line).at(0), SplitString(line).at(1)));
+    // }
+
+    void LoadDatabase() {
+        lines = ReadFileLines("passwords.txt");
+        std::vector<std::string> key_password_vec;
+
+        for (const auto& line : lines) {
+            std::vector<std::string> key_password_vec = SplitString(line);
+            key_password_pairs = std::pair(key_password_vec.at(0), key_password_vec.at(1));
+            SystemPasswrods.push_back(Password(key_password_pairs.first, key_password_pairs.second));
+        }
     }
 
     int Menu() {
         int choice = -1;
         while (-1 == choice) {
-            std::cout
+            std::cout << '\n'
                 << "\t1. new auto key\n"
                 << "\t2. new manual key\n"
                 << "\t3. search key by prefix\n"
@@ -141,18 +159,25 @@ struct PassMan {
     }
 
     void Run() {
-        int choice = Menu();
-        switch (choice) {
-        case 1: NewAutoPassword(); break;
-        case 2: NewManualPassword(); break;
-        case 3: SearchByKeyPrefix(); break;
-        case 4: PrintAllKeys(); break;
-        case 5: RemoveKeyByName(); break;
-        default: return;
+        int choice{};
+
+        while (true) {
+            choice = Menu();
+
+            switch (choice) {
+            case 1: NewAutoPassword(); break;
+            case 2: NewManualPassword(); break;
+            case 3: SearchByKeyPrefix(); break;
+            case 4: PrintAllKeys(); break;
+            case 5: RemoveKeyByName(); break;
+            default: return;
+            }
         }
     }
 
     void NewAutoPassword() {
+        LoadDatabase();
+
         std::cout << "\tkey: ";
         std::cin >> new_password.key;
         new_password.password = new_password.GenerateRandomPassword();
@@ -162,6 +187,8 @@ struct PassMan {
     }
 
     void NewManualPassword() {
+        LoadDatabase();
+
         std::cout << "\tkey: ";
         std::cin >> new_password.key;
         std::cout << "\tpassword: ";
@@ -174,32 +201,24 @@ struct PassMan {
     void SearchByKeyPrefix() {
         std::string keyword = get_string("\t\nenter a search keyword: ");
 
-        // TODO:
-        // - [ ] sort the vector befor searching
-        // - [ ] improve the search
-
-        // for (const auto& key : lines) {
-        //     if (std::regex_match(key.keyName, std::regex(keyword))) {
-        //         std::cout << key.keyName << '\t' << word.key << '\n';
-        //     }
-        // }
-
-        // std::cout << "\nEnter a key in the keyboard to Continue...";
-        // getchar();
-
     }
 
     void PrintAllKeys() {
+        LoadDatabase();
 
+        for (auto& pw : SystemPasswrods) {
+            pw.Print();
+        }
     }
 
     void RemoveKeyByName() {
-
     }
 
 };
 
 int main() {
+    PassMan system;
+    system.Run();
 
     return 0;
 }
