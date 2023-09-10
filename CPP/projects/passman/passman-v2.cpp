@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <assert.h>
+#include <iterator>
 #include <sstream>
 #include <fstream>
 #include <vector>
@@ -47,7 +48,7 @@ std::vector<std::string> ReadFileLines(std::string path) {
     return lines;
 }
 
-void WritFileLines(std::string str, std::string path, bool append = true) {
+void WriteFileLines(std::string str, std::string path, bool append = true) {
     auto status{ std::ios::in | std::ios::out | std::ios::app };
     if (!append) {
         status = std::ios::in | std::ios::out | std::ios::app;
@@ -117,25 +118,22 @@ struct PassMan {
     Password new_password;
     std::vector<std::string> lines;
     std::pair<std::string, std::string> key_password_pairs;
-    std::vector<Password> SystemPasswrods;
+    std::vector<Password> SystemPasswords;
 
 
     PassMan() {
     }
 
-    // for (const auto& line : lines) { // lines(vector of lines)
-    //     // std::vector<std::string> key_password = SplitString(line);
-    //     key_password_pairs.push_back(std::pair(SplitString(line).at(0), SplitString(line).at(1)));
-    // }
 
     void LoadDatabase() {
         lines = ReadFileLines("passwords.txt");
         std::vector<std::string> key_password_vec;
+        SystemPasswords.clear();
 
         for (const auto& line : lines) {
             std::vector<std::string> key_password_vec = SplitString(line);
             key_password_pairs = std::pair(key_password_vec.at(0), key_password_vec.at(1));
-            SystemPasswrods.push_back(Password(key_password_pairs.first, key_password_pairs.second));
+            SystemPasswords.push_back(Password(key_password_pairs.first, key_password_pairs.second));
         }
     }
 
@@ -147,11 +145,10 @@ struct PassMan {
                 << "\t2. new manual key\n"
                 << "\t3. search key by prefix\n"
                 << "\t4. print all keys\n"
-                << "\t5. remove key name\n"
-                << "\t6. exit\n";
+                << "\t5. exit\n";
 
-            choice = get_int("\t\nenter number in range 1 - 6: ");
-            if (!(1 <= choice && choice <= 6)) {
+            choice = get_int("\t\nenter number in range 1 - 5: ");
+            if (!(1 <= choice && choice <= 5)) {
                 choice = -1;
             }
         }
@@ -167,9 +164,8 @@ struct PassMan {
             switch (choice) {
             case 1: NewAutoPassword(); break;
             case 2: NewManualPassword(); break;
-            case 3: SearchByKeyPrefix(); break;
+            case 3: SearchKeyByPrefix(); break;
             case 4: PrintAllKeys(); break;
-            case 5: RemoveKeyByName(); break;
             default: return;
             }
         }
@@ -178,45 +174,68 @@ struct PassMan {
     void NewAutoPassword() {
         LoadDatabase();
 
-        // TODO: check if key is taken before
-
         std::cout << "\tkey: ";
         std::cin >> new_password.key;
         new_password.password = new_password.GenerateRandomPassword();
 
-        WritFileLines(new_password.GenerateCompletePassword(), "passwords.txt");
+        WriteFileLines(new_password.GenerateCompletePassword(), "passwords.txt");
         new_password.Clear();
     }
 
     void NewManualPassword() {
         LoadDatabase();
 
-        // TODO: check if key is taken before
-
         std::cout << "\tkey: ";
         std::cin >> new_password.key;
         std::cout << "\tpassword: ";
         std::cin >> new_password.password;
 
-        WritFileLines(new_password.GenerateCompletePassword(), "passwords.txt");
+        WriteFileLines(new_password.GenerateCompletePassword(), "passwords.txt");
         new_password.Clear();
     }
 
-    void SearchByKeyPrefix() {
+    std::vector<Password> MatchPrefix(
+            std::vector<Password> input,
+            std::string prefix){
+
+        bool valid {true};
+
+        std::vector<Password> result;
+        for (const auto &pw: input){
+            valid = true;
+            
+            if (std::size(prefix) > std::size(pw.key)) continue;
+
+            for (int i = 0; i < int(prefix.size()); i++){
+                if (tolower(pw.key.at(i)) != tolower(prefix.at(i))){
+                    valid = false;
+                    continue;
+                }
+            }
+            if (valid) result.push_back(pw);
+        }
+
+        return result;
+    }
+
+    void SearchKeyByPrefix() {
+        LoadDatabase();
+
         std::string keyword = get_string("\t\nenter a search keyword: ");
-        // TODO:
+
+        auto found_keys = MatchPrefix(SystemPasswords, keyword);
+        for (auto &pw: found_keys){
+            pw.Print();
+        }
 
     }
 
     void PrintAllKeys() {
         LoadDatabase();
 
-        for (auto& pw : SystemPasswrods) {
+        for (auto& pw : SystemPasswords) {
             pw.Print();
         }
-    }
-
-    void RemoveKeyByName() {
     }
 
 };
