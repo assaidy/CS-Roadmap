@@ -3,36 +3,23 @@
 #include <string>
 #include <vector>
 
-std::vector<std::string> SearchByPrefix(
-        std::vector<std::string> input,
-        std::string prefix){
-
-    bool valid {true};
-
-    std::vector<std::string> result;
-    for (const auto &word: input){
-        valid = true;
-        for (int i = 0; i < int(prefix.size()); i++){
-            if (tolower(word.at(i)) != tolower(prefix.at(i))){
-                valid = false;
-                continue;
-            }
-        }
-        if (valid) result.push_back(word);
-    }
-
-    return result;
-}
+struct SpecialName {
+    std::string name = "Ahmad";
+    std::string &get_name() {return name;}
+    void print() {std::cout << name << '\n';}
+};
 
 int main() {
-    // search by prefix
-    std::vector<std::string> test {"hello", "hI", "hilla", "ahmad", "Ali"};
+    SpecialName name;
+    name.print();
 
-    auto res = SearchByPrefix(test, "Hi");
-    
-    for (const auto &word: res)
-        std::cout << word << ' ';
-    std::cout << '\n';
+    std::string &str {name.get_name()};
+    str = "Ziad";
+    name.print();
+
+    name.get_name() = "Ali";
+    name.print();
+
 
     return 0;
 }
