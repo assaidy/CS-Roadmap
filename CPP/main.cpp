@@ -2,25 +2,14 @@
 #include <iostream>
 #include <string>
 
-double maxim = 0;
-
-template <typename T>
-double find_max(T t) {
-    if (maxim < t)
-        maxim = t;
-    return maxim;
-}
-
-template <typename T, typename... Args>
-double find_max(T t, Args... args) {
-    if (maxim < t)
-        maxim = t;
-    return find_max(args...);
+template <class... Args>
+void print(Args... args) {
+    (std::cout << ... << args) << '\n';
 }
 
 int main() {
-    double max = find_max(1, 20, 15.5, 30.5, 30);
-    std::cout << max << '\n';
+    print(1, " ali ", 1 + 5.5, " a");
+
     return 0;
 }
 
