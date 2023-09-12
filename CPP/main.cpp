@@ -1,33 +1,26 @@
+#include <algorithm>
 #include <iostream>
-#include <stdexcept>
+#include <string>
 
-struct BanckAcount {
-    int money {1000};
-    bool PayBill(int bill_value) {
-        if (bill_value < 0) {
-            throw std::invalid_argument("Bill value can't be negative!");
-        }
-        if (money >= bill_value) {
-            money -= bill_value;
-            return true;
-        }
-        return false;
-    }
-};
+double maxim = 0;
+
+template <typename T>
+double find_max(T t) {
+    if (maxim < t)
+        maxim = t;
+    return maxim;
+}
+
+template <typename T, typename... Args>
+double find_max(T t, Args... args) {
+    if (maxim < t)
+        maxim = t;
+    return find_max(args...);
+}
 
 int main() {
-    BanckAcount acct;
-
-    try {
-        std::cout << acct.PayBill(100) << '\n';
-        std::cout << acct.PayBill(500'000) << '\n';
-        std::cout << acct.PayBill(-10) << '\n';
-        std::cout << acct.PayBill(20) << '\n';
-    } catch (std::invalid_argument &e) {
-        std::cout << "Cought an exception: " << e.what() << '\n';
-    }
-
-    std::cout << "bye\n";
-
+    double max = find_max(1, 20, 15.5, 30.5, 30);
+    std::cout << max << '\n';
     return 0;
 }
+
