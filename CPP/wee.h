@@ -8,6 +8,8 @@
 
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#ifndef WEE_H
+#define WEE_H
 
 // basic input() function like python
 std::string input(std::string msg = "") {
@@ -153,3 +155,5 @@ std::string str_replace(std::string input, std::string pattern, std::string to) 
 }
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+#endif // WEE_H
