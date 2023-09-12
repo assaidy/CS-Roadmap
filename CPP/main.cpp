@@ -26,6 +26,7 @@ int main() {
     } catch (std::invalid_argument &e) {
         std::cout << "Cought an exception: " << e.what() << '\n';
     }
+
     std::cout << "bye\n";
 
     return 0;
