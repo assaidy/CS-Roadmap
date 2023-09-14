@@ -6,8 +6,8 @@
 #include <stdexcept>
 #include <string>
 
-#ifndef INPUT_
-#define INPUT_
+#ifndef INPUT_H
+#define INPUT_H
 
 template <class T>
 struct input {
@@ -36,7 +36,8 @@ struct input {
                 token += content.at(i);
             }
             result.push_back(token);
-        } else {
+        }
+        else {
             throw std::runtime_error("[ERROR] input must be of type 'std::string'\n");
         }
         return result;
@@ -60,4 +61,4 @@ struct input {
     }
 };
 
-#endif // INPUT_
+#endif // INPUT_H
