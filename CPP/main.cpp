@@ -1,15 +1,15 @@
-#include <algorithm>
 #include <iostream>
-#include <string>
+#include "./projects/input/input.h"
 
-template <class... Args>
-void print(Args... args) {
-    (std::cout << ... << args) << '\n';
-}
 
 int main() {
-    print(1, " ali ", 1 + 5.5, " a");
+    bool test {
+        input<std::string>("test: ").has_prefix("hel")
+    };
+    std::cout << test << '\n';
+
+    // std::string prefix = "--foo=";
+    // std::cout << std::string("--").compare(0, prefix.size(), prefix) << '\n';
 
     return 0;
 }
-
