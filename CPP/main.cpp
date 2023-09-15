@@ -1,10 +1,12 @@
 #include <iostream>
 #include <string>
-// FIX: #include "./projects/input/input.h"
+// FIXME: #include "./projects/input/input.h"
 
-
-// symple calculator
 int main() {
+    int num1{}, num2{}, sum{};
+    std::cin >> num1 >> num2;
+    sum = num1 + num2;
+    std::cout << sum << '\n';
 
     return 0;
 }
