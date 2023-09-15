@@ -5,6 +5,7 @@
 #include <regex>
 #include <stdexcept>
 #include <string>
+#include <typeinfo>
 
 #ifndef INPUT_H
 #define INPUT_H
@@ -17,7 +18,8 @@ struct input {
         std::cout << msg;
         if ('w' == range)
             std::cin >> content;
-        else if ('l' == range) {
+        else if ('l' == range && (typeid(content) == typeid(std::string))) {
+            content = std::strign();
             std::cin.ignore();
             std::getline(std::cin, content, '\n');
         }
