@@ -102,7 +102,7 @@ int main(int argc, char* argv[]) {
         std::vector<int> timer_data{ get_timer_data(user_arg_str) };
 
         norm_timer(timer_data);
-
+        std::cout << "DONE! GOOD JOB :)\n";
     }
     // NOTE: ERROR
     else {
