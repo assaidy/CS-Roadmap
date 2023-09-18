@@ -43,7 +43,12 @@ void norm_counter() {
             hours++;
             minutes = 0;
         }
-        std::cout << hours << ":" << minutes << ":" << seconds++ << "\r" << std::flush;
+        // std::cout << hours << ":" << minutes << ":" << seconds++ << "\r" << std::flush;
+        std::cout
+            << std::setw(2) << std::setfill('0') << hours << ":"
+            << std::setw(2) << std::setfill('0') << minutes << ":"
+            << std::setw(2) << std::setfill('0') << seconds++
+            << "\r" << std::flush;
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 }
