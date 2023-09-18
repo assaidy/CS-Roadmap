@@ -50,10 +50,11 @@ void norm_counter() {
 
 
 void norm_timer(const std::vector<int>& _timer_data) {
-    int hours{_timer_data.at(0)};
-    int minutes{_timer_data.at(1)};
-    int seconds{_timer_data.at(2)};
+    int hours{ _timer_data.at(0) };
+    int minutes{ _timer_data.at(1) };
+    int seconds{ _timer_data.at(2) };
     int total_seconds{ hours * 60 * 60 + minutes * 60 + seconds };
+    int total_seconds_tmp{ total_seconds };
 
     while (total_seconds--) {
         if (0 == seconds) {
@@ -72,7 +73,7 @@ void norm_timer(const std::vector<int>& _timer_data) {
         if (hours <= 0) {
             hours = 0;
         }
-        std::cout
+        std::cout << " [" << std::setw(2) << std::setfill('0') << total_seconds * 100 / total_seconds_tmp << "%] "
             << std::setw(2) << std::setfill('0') << hours << ":"
             << std::setw(2) << std::setfill('0') << minutes << ":"
             << std::setw(2) << std::setfill('0') << seconds--
@@ -106,5 +107,3 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
-
-// TODO: ADD ASCII ART [-a] at the end.
