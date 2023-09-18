@@ -29,6 +29,13 @@ std::vector<int> get_timer_data(std::string str) {
     return result;
 }
 
+void figlet_print(int hours, int minutes, int seconds) {
+    std::string cmd{ "clear; " };
+    cmd += "figlet -f ~/.local/share/fonts/ANSI\\ Regular.tlf -t -c \"";
+    cmd += std::to_string(hours) + ":" + std::to_string(minutes) + ":" + std::to_string(seconds) + "\"";
+    std::system(cmd.c_str());
+}
+
 void norm_counter() {
     int hours{};
     int minutes{};
@@ -43,12 +50,15 @@ void norm_counter() {
             hours++;
             minutes = 0;
         }
-        // std::cout << hours << ":" << minutes << ":" << seconds++ << "\r" << std::flush;
-        std::cout
-            << std::setw(2) << std::setfill('0') << hours << ":"
-            << std::setw(2) << std::setfill('0') << minutes << ":"
-            << std::setw(2) << std::setfill('0') << seconds++
-            << "\r" << std::flush;
+        // std::cout
+        //     << std::setw(2) << std::setfill('0') << hours << ":"
+        //     << std::setw(2) << std::setfill('0') << minutes << ":"
+        //     << std::setw(2) << std::setfill('0') << seconds++
+        //     << "\r" << std::flush;
+
+        figlet_print(hours, minutes, seconds);
+        seconds++;
+
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 }
@@ -78,11 +88,15 @@ void norm_timer(const std::vector<int>& _timer_data) {
         if (hours <= 0) {
             hours = 0;
         }
-        std::cout << " [" << std::setw(2) << std::setfill('0') << total_seconds * 100 / total_seconds_tmp << "%] "
-            << std::setw(2) << std::setfill('0') << hours << ":"
-            << std::setw(2) << std::setfill('0') << minutes << ":"
-            << std::setw(2) << std::setfill('0') << seconds--
-            << "\r" << std::flush;
+        // std::cout << " [" << std::setw(2) << std::setfill('0') << total_seconds * 100 / total_seconds_tmp << "%] "
+        //     << std::setw(2) << std::setfill('0') << hours << ":"
+        //     << std::setw(2) << std::setfill('0') << minutes << ":"
+        //     << std::setw(2) << std::setfill('0') << seconds--
+        //     << "\r" << std::flush;
+
+        figlet_print(hours, minutes, seconds);
+        seconds--;
+
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 }
@@ -102,6 +116,7 @@ int main(int argc, char* argv[]) {
         std::vector<int> timer_data{ get_timer_data(user_arg_str) };
 
         norm_timer(timer_data);
+        figlet_print(0, 0, 0);
         std::cout << "DONE! GOOD JOB :)\n";
     }
     // NOTE: ERROR
@@ -112,3 +127,5 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
+
+// TODO: ADD FIGLET fonts
