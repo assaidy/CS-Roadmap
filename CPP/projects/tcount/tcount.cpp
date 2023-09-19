@@ -95,8 +95,8 @@ void norm_timer(const std::vector<int>& _timer_data) {
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
     figlet_print(0, 0, 0);
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    // TODO: NOTIFICATION SOUND
+    std::system("canberra-gtk-play -f ~/.local/share/tcount/mixkit-positive-notification-951.wav");
+    // std::this_thread::sleep_for(std::chrono::seconds(1));
     norm_counter(_timer_data.at(0), _timer_data.at(1), _timer_data.at(2));
 }
 
