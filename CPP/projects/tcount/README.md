@@ -6,7 +6,7 @@
 
 ### Building :
 ```sh
-git clone github.come/ahmad-alsaidy/tcount.git
+git clone https://github.com/ahmad-alsaidy/tcount.git
 cd build
 ./build.sh
 ```
