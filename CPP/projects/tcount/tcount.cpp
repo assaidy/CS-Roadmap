@@ -46,11 +46,11 @@ void norm_counter(int hours = 0, int minutes = 0, int seconds = 0) {
             hours++;
             minutes = 0;
         }
-        // std::cout
-        //     << std::setw(2) << std::setfill('0') << hours << ":"
-        //     << std::setw(2) << std::setfill('0') << minutes << ":"
-        //     << std::setw(2) << std::setfill('0') << seconds++
-        //     << "\r" << std::flush;
+/*         std::cout
+            << std::setw(2) << std::setfill('0') << hours << ":"
+            << std::setw(2) << std::setfill('0') << minutes << ":"
+            << std::setw(2) << std::setfill('0') << seconds++
+            << "\r" << std::flush; */
 
         figlet_print(hours, minutes, seconds);
         seconds++;
@@ -83,11 +83,11 @@ void norm_timer(const std::vector<int>& _timer_data) {
         if (hours <= 0) {
             hours = 0;
         }
-        // std::cout << " [" << std::setw(2) << std::setfill('0') << total_seconds * 100 / total_seconds_tmp << "%] "
-        //     << std::setw(2) << std::setfill('0') << hours << ":"
-        //     << std::setw(2) << std::setfill('0') << minutes << ":"
-        //     << std::setw(2) << std::setfill('0') << seconds--
-        //     << "\r" << std::flush;
+/*         std::cout << " [" << std::setw(2) << std::setfill('0') << total_seconds * 100 / total_seconds_tmp << "%] "
+            << std::setw(2) << std::setfill('0') << hours << ":"
+            << std::setw(2) << std::setfill('0') << minutes << ":"
+            << std::setw(2) << std::setfill('0') << seconds--
+            << "\r" << std::flush; */
 
         figlet_print(hours, minutes, seconds);
         seconds--;
@@ -96,7 +96,6 @@ void norm_timer(const std::vector<int>& _timer_data) {
     }
     figlet_print(0, 0, 0);
     std::system("canberra-gtk-play -f ~/.local/share/tcount/mixkit-positive-notification-951.wav");
-    // std::this_thread::sleep_for(std::chrono::seconds(1));
     norm_counter(_timer_data.at(0), _timer_data.at(1), _timer_data.at(2));
 }
 
@@ -115,7 +114,6 @@ int main(int argc, char* argv[]) {
         std::vector<int> timer_data{ get_timer_data(user_arg_str) };
 
         norm_timer(timer_data);
-        // std::cout << "DONE! GOOD JOB :)\n";
     }
     // NOTE: ERROR
     else {
@@ -125,5 +123,3 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
-
-// TODO: BUILD
