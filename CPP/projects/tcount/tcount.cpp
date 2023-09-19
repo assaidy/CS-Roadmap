@@ -30,17 +30,13 @@ std::vector<int> get_timer_data(std::string str) {
 }
 
 void figlet_print(int hours, int minutes, int seconds) {
-    std::string cmd{ "clear; " };
-    cmd += "figlet -f ~/.local/share/fonts/ANSI\\ Regular.tlf -t -c \"";
-    cmd += std::to_string(hours) + ":" + std::to_string(minutes) + ":" + std::to_string(seconds) + "\"";
+    std::string cmd{ "clear; echo '\n'; " };
+    cmd += "figlet -f ~/.local/share/tcount/ansi_regular.flf -t -c ";
+    cmd += "\"" + std::to_string(hours) + ":" + std::to_string(minutes) + ":" + std::to_string(seconds) + "\"";
     std::system(cmd.c_str());
 }
 
-void norm_counter() {
-    int hours{};
-    int minutes{};
-    int seconds{};
-
+void norm_counter(int hours = 0, int minutes = 0, int seconds = 0) {
     while (true) {
         if (seconds == 60) {
             minutes++;
@@ -69,7 +65,6 @@ void norm_timer(const std::vector<int>& _timer_data) {
     int minutes{ _timer_data.at(1) };
     int seconds{ _timer_data.at(2) };
     int total_seconds{ hours * 60 * 60 + minutes * 60 + seconds };
-    int total_seconds_tmp{ total_seconds };
 
     while (total_seconds--) {
         if (0 == seconds) {
@@ -99,6 +94,10 @@ void norm_timer(const std::vector<int>& _timer_data) {
 
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
+    figlet_print(0, 0, 0);
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    // TODO: NOTIFICATION SOUND
+    norm_counter(_timer_data.at(0), _timer_data.at(1), _timer_data.at(2));
 }
 
 int main(int argc, char* argv[]) {
@@ -116,8 +115,7 @@ int main(int argc, char* argv[]) {
         std::vector<int> timer_data{ get_timer_data(user_arg_str) };
 
         norm_timer(timer_data);
-        figlet_print(0, 0, 0);
-        std::cout << "DONE! GOOD JOB :)\n";
+        // std::cout << "DONE! GOOD JOB :)\n";
     }
     // NOTE: ERROR
     else {
@@ -128,4 +126,4 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
-// TODO: ADD FIGLET fonts
+// TODO: BUILD
