@@ -18,16 +18,16 @@ void Book::print() {
 }
 
 bool Book::next_page() {
-    if (current_page == Book::get_total_pages()) return false;
+    if (Book::current_page == Book::get_total_pages()) return false;
 
-    current_page++;
+    Book::current_page++;
     return true;
 }
 
 bool Book::previous_page() {
-    if (current_page == 0) return false;
+    if (Book::current_page == 0) return false;
 
-    current_page--;
+    Book::current_page--;
     return true;
 }
 

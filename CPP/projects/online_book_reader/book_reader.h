@@ -56,7 +56,7 @@ public:
     void set_username(std::string _username);
     void set_email(std::string _email);
     void set_password(int _password);
-    void set_current_book(Book _current_book);
+    void set_current_book(Book& _current_book);
 
     std::string get_name();
     Book& get_current_book();

@@ -39,7 +39,7 @@ void User::set_password(int _password) {
     User::password = _password;
 }
 
-void User::set_current_book(Book _current_book) {
+void User::set_current_book(Book& _current_book) {
     User::current_book = _current_book;
 }
 
