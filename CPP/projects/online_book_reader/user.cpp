@@ -5,16 +5,19 @@
 std::string User::tostring(Book _current_book) { // book name + curPage/totalPages + date + time
     std::ostringstream oss;
     oss << _current_book.get_name() << " "
-        << _current_book.get_current_page() << "/" << _current_book.get_total_pages() << " ";
+        << _current_book.get_current_page() << "/" << _current_book.get_total_pages() << "\n";
 
     return oss.str();
 }
 
-void User::save_session(std::string) {
+void User::save_session() {
     User::sessions.push_back(User::tostring(User::get_current_book()));
 }
 
 void User::list_sessions() {
+    if ((int)User::sessions.size() == 0) {
+        std::cout << "==> No Sesions Yet.\n";
+    }
     for (const auto& session : User::sessions) {
         std::cout << session;
     }
@@ -56,6 +59,6 @@ int User::get_password() {
     return User::password;
 }
 
-Book User::get_current_book() {
-    return User::current_book;
+Book& User::get_current_book() {
+    return this->current_book;
 }

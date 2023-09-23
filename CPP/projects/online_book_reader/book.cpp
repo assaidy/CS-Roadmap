@@ -3,7 +3,7 @@
 
 void Book::add_pages(int _total_pages) {
     std::string page;
-    for (int i = 1; i < Book::get_total_pages(); i++) {
+    for (int i = 1; i <= Book::get_total_pages(); i++) {
         std::cout << "Page # " << i << ": ";
         std::cin >> page;
         pages_title.push_back(page);
@@ -25,7 +25,7 @@ bool Book::next_page() {
 }
 
 bool Book::previous_page() {
-    if (current_page == 1) return false;
+    if (current_page == 0) return false;
 
     current_page--;
     return true;
@@ -49,10 +49,12 @@ std::string Book::get_name() {
 
 // pages starts form 1 => the vector starts from 0
 std::string Book::get_page_title(int _page_num) {
-    assert(_page_num > 0);
-    assert(_page_num <= Book::get_total_pages());
 
-    return pages_title.at(_page_num - 1);
+    return pages_title.at(_page_num);
+}
+
+void Book::set_total_pages(int _total_pages) {
+    Book::total_pages = _total_pages;
 }
 
 void Book::set_id(int _id) {

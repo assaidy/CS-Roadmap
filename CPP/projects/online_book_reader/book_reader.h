@@ -1,4 +1,3 @@
-#pragma once
 #include <iostream>
 #include <vector>
 
@@ -27,6 +26,7 @@ public:
     std::string get_name();
     std::string get_page_title(int _page_num);
 
+    void set_total_pages(int _total_pages);
     void set_id(int _id);
     void set_name(std::string _name);
     void set_current_page(int _pos);
@@ -49,7 +49,7 @@ public:
         name = username = email = "";
         password = 0;
     }
-    void save_session(std::string);
+    void save_session();
     void list_sessions();
 
     void set_name(std::string _name);
@@ -59,7 +59,7 @@ public:
     void set_current_book(Book _current_book);
 
     std::string get_name();
-    Book get_current_book();
+    Book& get_current_book();
     std::string get_username();
     std::string get_email();
     int get_password();
@@ -70,15 +70,23 @@ class BookReader
 private:
     std::vector<Book> added_books;
     std::vector<User> added_users;
+    const std::string ADMIN_USERNAME = "ahmad";
+    const int ADMIN_PASSWORD = 111;
+    User current_user;
 
 public:
-    BookReader(/* args */);
+    BookReader(/* args */) {
+        std::cout << "system starts\n\n";
+    }
+    int login_menu();
     void run();
     void login();
     void signup();
     void logout();
+    bool is_admin(std::string _username, int _password);
+    int is_user(std::string _username, int _password);
     void admin_view();
-    void user_view();
-    void add_book(const Book& _new_book);
+    void user_view(int _user_idx);
+    void add_book();
     void stop_reading();
 };
