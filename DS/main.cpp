@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cassert>
 #include <climits>
-
 #include <string>
 #include <vector>		// for debug
 #include <algorithm>
@@ -396,6 +395,24 @@ public:
         debug_verify_data_integrity();
     }
 
+    // using dll {1, 2, 3, 4, 5} => {5, 4, 3, 2, 1}
+    void reverse() { // O(n) time, O(1) memory
+        if (length <= 1) return;
+
+        for (Node *cur = head; cur; ) {
+            Node *next = cur->next;
+            std::swap(cur->next, cur->prev);
+            cur = next;
+        }
+        std::swap(head, tail);
+        debug_verify_data_integrity();
+    }
+
+    // TODO: O(n+m) time, O(1) memory
+    void merge_2sorted_lists(LinkedList &other) {
+        debug_verify_data_integrity();
+    }
+
 };
 
 void test1() {
@@ -544,14 +561,62 @@ void test7() {
 
 	string expected = "1 4 3 2 5";
 	string result = list.debug_to_string();
-	if (expected != result) {
-		cout << "no match:\nExpected: " << expected << "\nResult  : " << result << "\n";
-		assert(false);
-	}
+    if (expected != result) {
+        cout << "no match:\nExpected: " << expected << "\nResult  : " << result << "\n";
+        assert(false);
+    }
+}
+
+void test8() {
+	cout << "\n\ntest8\n";
+	LinkedList list;
+
+    list.insert_end(1);
+    list.insert_end(2);
+    list.insert_end(3);
+    list.insert_end(4);
+    list.insert_end(5);
+
+    list.reverse();
+	list.print();
+
+	string expected = "5 4 3 2 1";
+	string result = list.debug_to_string();
+    if (expected != result) {
+        cout << "no match:\nExpected: " << expected << "\nResult  : " << result << "\n";
+        assert(false);
+    }
+}
+
+void test9() {
+	cout << "\n\ntest9\n";
+	LinkedList list;
+    list.insert_end(10);
+    list.insert_end(20);
+    list.insert_end(30);
+    list.insert_end(40);
+    // list.insert_end(50);
+
+    LinkedList list2;
+    list2.insert_end(15);
+    list2.insert_end(17);
+    list2.insert_end(22);
+    list2.insert_end(24);
+    list2.insert_end(35);
+
+    list.merge_2sorted_lists(list2);
+	list.print();
+
+	string expected = "10 15 17 20 22 24 30 35 40 50";
+	string result = list.debug_to_string();
+    if (expected != result) {
+        cout << "no match:\nExpected: " << expected << "\nResult  : " << result << "\n";
+        assert(false);
+    }
 }
 
 int main() {
-	test7();
+	test9();
 
 	// must see it, otherwise RTE
 	cout << "\n\nNO RTE\n";
