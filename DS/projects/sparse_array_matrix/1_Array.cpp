@@ -1,12 +1,7 @@
 #include <iostream>
+using namespace std;
 
-struct Node {
 
-};
-
-class sparse_array {
-
-};
 
 int main() {
     return 0;
