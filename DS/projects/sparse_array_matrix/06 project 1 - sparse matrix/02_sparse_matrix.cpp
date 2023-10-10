@@ -110,7 +110,7 @@ public:
 	}
 };
 
-// This is linked list is: linked list of a linked list
+// This linked list is: linked list of a linked list
 // each node represents a row that has values at specific columns
 struct RowNode {
 	int row { };
