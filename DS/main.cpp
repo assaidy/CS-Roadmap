@@ -1,201 +1,59 @@
+#include <filesystem>
 #include <iostream>
 #include <cassert>
 
-class Queue {
-private:
-    int size{};
-    int front{};
-    int rear{};
-    int added_elements{};
-    int* arr{};
+struct Node {
+    int data {};
+    Node *left {};
+    Node *right {};
 
-public:
-    Queue(int size) : size(size) {
-        arr = new int[size];
-    }
-
-    ~Queue() {
-        delete[] arr;
-    }
-
-    int front_val() {
-        assert(!isEmpty());
-        return arr[front];
-    }
-
-    int next(int pos) {
-        // return (pos + 1) % size;
-        pos++;
-        if (pos == size)
-            pos = 0;
-        return pos;
-    }
-
-    void enqueue(int value) {
-        assert(!isFull());
-        arr[rear] = value;
-        rear = next(rear);
-        added_elements++;
-    }
-
-    int dequeue() {
-        assert(!isEmpty());
-        int value = arr[front];
-        front = next(front);
-        added_elements--;
-        return value;
-    }
-
-    bool isEmpty() {
-        return added_elements == 0;
-    }
-
-    bool isFull() {
-        return added_elements == size;
-    }
-
-    void display() {
-        std::cout << "Front " << front << " - rear " << rear << "\n";
-        if (isEmpty()) {
-            std::cout << "empty\n\n";
-            return;
-        }
-        else if (isFull())
-            std::cout << "full\n";
-
-        for (int cur = front, steps = 0; steps < added_elements;
-            steps++, cur = next(cur))
-            std::cout << arr[cur] << " ";
-        std::cout << "\n";
-    }
+    Node(int data) : data(data) {}
 };
 
-class Deque {
-private:
-    int size{};
-    int front{};
-    int rear{};
-    int added_elements{};
-    int* arr{};
-
-public:
-    Deque(int size) : size(size) {
-        arr = new int[size];
+void print(Node *node) {
+    if (!node->right && !node->left) {
+        std::cout << node->data << "\n";
+        return;
     }
 
-    ~Deque() {
-        delete[] arr;
-    }
+    std::cout << node->data << " ";
 
-    int next(int pos) {
-        // return (pos + 1) % size;
-        pos++;
-        if (pos == size)
-            pos = 0;
-        return pos;
-    }
+    if (node->right)
+        print(node->right);
 
-    int prev(int pos) {
-        pos--;
-        if (pos == -1)
-            pos = size - 1;
-        return pos;
-    }
-
-    void enqueue_rear(int value) {
-        assert(!isFull());
-        arr[rear] = value;
-        rear = next(rear);
-        added_elements++;
-    }
-
-    void enqueue_front(int value) {
-        assert(!isFull());
-        front = prev(front);
-        arr[front] = value;
-        added_elements++;
-    }
-
-    int dequeue_front() {
-        assert(!isEmpty());
-        int value = arr[front];
-        front = next(front);
-        added_elements--;
-        return value;
-    }
-
-    int dequeue_rear() {
-        assert(!isEmpty());
-        rear = prev(rear);
-        int value = arr[rear];
-        added_elements--;
-        return value;
-    }
-
-    bool isEmpty() {
-        return added_elements == 0;
-    }
-
-    bool isFull() {
-        return added_elements == size;
-    }
-
-    void display() {
-        std::cout << "Front " << front << " - rear " << rear << "\n";
-        if (isEmpty()) {
-            std::cout << "empty\n\n";
-            return;
-        }
-        else if (isFull())
-            std::cout << "full\n";
-
-        for (int cur = front, steps = 0; steps < added_elements;
-            steps++, cur = next(cur))
-            std::cout << arr[cur] << " ";
-        std::cout << "\n";
-    }
-};
-
-class Stack {
-private:
-    Queue q;
-    int added_elements{};
-
-    void insert_front(int value) {
-        int sz = added_elements;
-        q.enqueue(value);
-        while (sz--)
-            q.enqueue(q.dequeue());
-        added_elements++;
-    }
-
-public:
-    Stack(int size) : q(size) {
-    }
-
-    void push(int value) {
-        insert_front(value);
-    }
-
-    int pop() {
-        return q.dequeue();
-    }
-
-    int peak() {
-        return q.front_val();
-    }
-
-    bool isFull() {
-        return q.isFull();
-    }
-
-    bool isEmpty() {
-        return q.isEmpty();
-    }
-};
-
+    if (node->left)
+        print(node->left);
+}
 
 int main() {
+    Node *root = new Node(1);
+    Node *node2 = new Node(2);
+    Node *node3 = new Node(3);
+    Node *node4 = new Node(4);
+    Node *node5 = new Node(5);
+    Node *node6 = new Node(6);
+    Node *node7 = new Node(7);
+    Node *node8 = new Node(8);
+
+    // linking
+    root->left = node2;
+    root->right = node3;
+
+    node2->left = node4;
+    node2->right = node5;
+
+    node3->right = node6;
+    
+    node5->right = node7;
+    
+    node6->left = node8;
+
+    // std::cout << root->left->right->right->data << "\n";
+    // std::cout <<      node2->right->right->data << "\n";
+    // std::cout <<             node5->right->data << "\n";
+    // std::cout <<                    node7->data << "\n";
+
+    print(root);
 
     return 0;
 }
