@@ -213,19 +213,6 @@ public:
     }
 
     // O(n) time, O(1) memory
-    void swap_pairs() {
-        if (length <= 1) return;
-
-        for (Node* cur = head; cur; cur = cur->next) {
-            if (cur->next) {
-                swap(cur->data, cur->next->data);
-                cur = cur->next;
-            }
-        }
-        debug_verify_data_integrity();
-    }
-
-    // O(n) time, O(1) memory
     void reverse() {
         if (length <= 1) return;
 
@@ -242,6 +229,19 @@ public:
         }
         head = prev;
         tail->next = nullptr;
+        debug_verify_data_integrity();
+    }
+
+    // O(n) time, O(1) memory
+    void swap_pairs() {
+        if (length <= 1) return;
+
+        for (Node* cur = head; cur; cur = cur->next) {
+            if (cur->next) {
+                swap(cur->data, cur->next->data);
+                cur = cur->next;
+            }
+        }
         debug_verify_data_integrity();
     }
 
