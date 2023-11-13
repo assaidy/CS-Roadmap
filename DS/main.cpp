@@ -148,36 +148,26 @@ public:
             right_height += right->height();
         return right_height + left_height;
     }
+
+    bool bst(int key) {
+        if (key == data)
+            return true;
+        if (key < data && left)
+            return left->bst(key);
+        if (key > data && right)
+            return right->bst(key);
+        return false;
+    }
 };
 
 int main() {
-    BinaryTree bt(1);
-    bt.add({2, 6}, {'L', 'L'});
-    bt.add({2, 7, 8}, {'L', 'R', 'R'});
-    bt.add({3, 4, 5}, {'R', 'L', 'R'});
+    BinaryTree bst(13);
+    bst.add({10, 2}, {'L', 'L'});
+    bst.add({10, 12}, {'L', 'R'});
+    bst.add({25, 20}, {'R', 'L'});
+    bst.add({25, 31, 29}, {'R', 'R', 'L'});
 
-    bt.bft();
-    std::cout << "\n";
-    bt.dft_preorder();
-    std::cout << "\n";
-    bt.dft_inorder();
-    std::cout << "\n";
-    bt.dft_postorder();
-    std::cout << "\n";
+    std::cout << bst.bst(3) << "\n";
 
-    //////////////////////////// problems /////////////
-    std::cout << "\n==> problems: \n";
-    bt.print_leaf_nodes(); // 6 8 5
-    std::cout << "\n";
-    std::cout 
-        << bt.exist(1) 
-        << bt.exist(11) 
-        << bt.exist(6) << "\n"; // 1 0 1
-    std::cout << bt.count_leaves() << "\n"; // 3
-    BinaryTree *inverted_bt {bt.invert()};
-    inverted_bt->bft(); // 1 3 2 4 7 6 5 8
-    std::cout << "\n";
-    std::cout << bt.height() << "\n"; // 3
-    std::cout << bt.diameter() << "\n"; // 6
     return 0;
 }
