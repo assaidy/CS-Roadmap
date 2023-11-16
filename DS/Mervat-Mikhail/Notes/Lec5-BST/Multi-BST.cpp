@@ -1,12 +1,14 @@
 #include <iostream>
 
-class BST {
+// INFO: Unique Binary Search Tree
+class MBST {
 private:
     int data {};
-    BST *left {};
-    BST *right {};
+    int counter {1};
+    MBST *left {};
+    MBST *right {};
 
-    void clear(BST *bt) {
+    void clear(MBST *bt) {
         std::cout << "destroing node of value " << bt->data 
             << " at address " << bt << "\n";
         delete bt;
@@ -14,35 +16,35 @@ private:
 
 public:
     // initialize the  BST with a root
-    BST(int data) : data(data) {}
+    MBST(int data) : data(data) {}
 
     int get_data() {
         return data;
     }
 
     // INFO: return a pointer to the new node & nullptr if found
-    BST *insert(int key) { // O(h) time
+    MBST *insert(int key) { // O(h) time
         if (key < data) {
             if (left)
                 return left->insert(key);
             else 
-                left = new BST(key);
+                left = new MBST(key);
             return left;
         }
         if (key > data) {
             if (right)
                 return right->insert(key);
             else 
-                right = new BST(key);
+                right = new MBST(key);
             return right;
         }
-        return nullptr; // lets make the BST Unique
-                        // we can instead make an 'int count' to count
-                        // how many existing node with this key
+        // equal
+        counter++;
+        return this;
     }
 
     // INFO: return a pointer to the node & nullptr if not found
-    BST *search(int key) { // O(h) time : h = height
+    MBST *search(int key) { // O(h) time : h = height
         if (key == data)
             return this;
         if (left && key < data)
@@ -53,7 +55,7 @@ public:
     }
 
     // INFO: delete a node with a given key & return the new BST
-    BST *delete_node(int key) {
+    MBST *delete_node(int key) {
         if (!this) return this;
 
         if (key < data)
@@ -62,15 +64,15 @@ public:
             right = right->delete_node(key);
         else {
             if (!left) {
-                BST *tmp {right};
+                MBST *tmp {right};
                 delete this;
                 return tmp;
             } else if (!right) {
-                BST *tmp {left};
+                MBST *tmp {left};
                 delete this;
                 return tmp;
             } else {
-                BST *tmp {right->min()};
+                MBST *tmp {right->min()};
                 this->data = tmp->data;
                 right = right->delete_node(tmp->data);
             }
@@ -78,13 +80,21 @@ public:
         return this;
     } 
 
-    BST *min() { // O(h) time
+    void print() {
+        if (left)
+            left->print();
+        std::cout << data << " [" << counter << "]" << "\n";
+        if (right)
+            right->print();
+    }
+
+    MBST *min() { // O(h) time
         if (!left)
             return this;
         return left->min();
     }
 
-    BST *max() { // O(h) time
+    MBST *max() { // O(h) time
         if (!right)
             return this;
         return right->max();
@@ -102,7 +112,7 @@ public:
         return std::max(left_height, right_height) + 1;
     }
 
-    ~BST() {
+    ~MBST() {
         if (left)
             clear(left);
         if (right)
@@ -111,15 +121,21 @@ public:
 };
 
 int main() {
-    BST bst(13);
-    std::cout << bst.insert(13) << "\n"; // 0
+    MBST bst(13);
+    std::cout << bst.insert(13) << "\n"; // 2
     std::cout << bst.insert(10) << "\n";
     std::cout << bst.insert(25) << "\n";
     std::cout << bst.insert(2)  << "\n";
     std::cout << bst.insert(12) << "\n";
     std::cout << bst.insert(20) << "\n";
+    std::cout << bst.insert(20) << "\n";
+    std::cout << bst.insert(20) << "\n"; // 3
     std::cout << bst.insert(31) << "\n";
     std::cout << bst.insert(29) << "\n";
+    std::cout << bst.insert(29) << "\n"; // 2
+
+    std::cout << "\n";
+    bst.print();
 
     std::cout << "\n";
     std::cout << bst.search(13) << "\n";
@@ -136,7 +152,7 @@ int main() {
     std::cout << bst.height() << "\n"; // 3
 
     std::cout << "\n";
-    BST *bst_after_deletion {bst.delete_node(13)};
+    MBST *bst_after_deletion {bst.delete_node(13)};
     std::cout << bst_after_deletion->search(13) << "\n"; // 0
     std::cout << bst_after_deletion->search(31) << "\n";
     bst_after_deletion = bst_after_deletion->delete_node(29);

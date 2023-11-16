@@ -1,5 +1,6 @@
 #include <iostream>
 
+// INFO: Unique Binary Search Tree
 class UBST {
 private:
     int data {};
@@ -78,6 +79,14 @@ public:
         return this;
     } 
 
+    void print() {
+        if (left)
+            left->print();
+        std::cout << data << "\n";
+        if (right)
+            right->print();
+    }
+
     UBST *min() { // O(h) time
         if (!left)
             return this;
@@ -120,6 +129,9 @@ int main() {
     std::cout << bst.insert(20) << "\n";
     std::cout << bst.insert(31) << "\n";
     std::cout << bst.insert(29) << "\n";
+
+    std::cout << "\n";
+    bst.print();
 
     std::cout << "\n";
     std::cout << bst.search(13) << "\n";
