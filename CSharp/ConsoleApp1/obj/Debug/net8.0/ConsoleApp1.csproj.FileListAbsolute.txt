@@ -1,0 +1,15 @@
+/home/assaidy/Documents/DEV/CS-Roadmap/CSharp/ConsoleApp1/bin/Debug/net8.0/ConsoleApp1
+/home/assaidy/Documents/DEV/CS-Roadmap/CSharp/ConsoleApp1/bin/Debug/net8.0/ConsoleApp1.deps.json
+/home/assaidy/Documents/DEV/CS-Roadmap/CSharp/ConsoleApp1/bin/Debug/net8.0/ConsoleApp1.runtimeconfig.json
+/home/assaidy/Documents/DEV/CS-Roadmap/CSharp/ConsoleApp1/bin/Debug/net8.0/ConsoleApp1.dll
+/home/assaidy/Documents/DEV/CS-Roadmap/CSharp/ConsoleApp1/bin/Debug/net8.0/ConsoleApp1.pdb
+/home/assaidy/Documents/DEV/CS-Roadmap/CSharp/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.GeneratedMSBuildEditorConfig.editorconfig
+/home/assaidy/Documents/DEV/CS-Roadmap/CSharp/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.AssemblyInfoInputs.cache
+/home/assaidy/Documents/DEV/CS-Roadmap/CSharp/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.AssemblyInfo.cs
+/home/assaidy/Documents/DEV/CS-Roadmap/CSharp/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.csproj.CoreCompileInputs.cache
+/home/assaidy/Documents/DEV/CS-Roadmap/CSharp/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.sourcelink.json
+/home/assaidy/Documents/DEV/CS-Roadmap/CSharp/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.dll
+/home/assaidy/Documents/DEV/CS-Roadmap/CSharp/ConsoleApp1/obj/Debug/net8.0/refint/ConsoleApp1.dll
+/home/assaidy/Documents/DEV/CS-Roadmap/CSharp/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.pdb
+/home/assaidy/Documents/DEV/CS-Roadmap/CSharp/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.genruntimeconfig.cache
+/home/assaidy/Documents/DEV/CS-Roadmap/CSharp/ConsoleApp1/obj/Debug/net8.0/ref/ConsoleApp1.dll
